@@ -144,19 +144,23 @@
                                         position += 200;
                                     }
                                     img1[i].removeEventListener('animationend', an3);
-                                })
-
-
+                                });
                             });
-
                         });
-
                     }, time);
                     time += 3000;
-
-
+                    if (i === 0) {
+                        img1[0].addEventListener('transitionend', function () {
+                            if (count1 > count2) {
+                                alert("Winner: Петя");
+                            } else if (count1 < count2) {
+                                alert("Winner: Вася");
+                            } else {
+                                alert("Ничья");
+                            }
+                        })
+                    }
                 }
-
             }
         }
     });
