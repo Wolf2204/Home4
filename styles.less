@@ -1,0 +1,164 @@
+#game {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  justify-content: space-between;
+  width: 1100px;
+  section {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    font-size: 40pt;
+    font-weight: bold;
+
+    &.player1 {
+
+    }
+    &.player2 {
+      text-align: right;
+    }
+    .score {
+      display: flex;
+      justify-content: center;
+    }
+
+  }
+  .suit {
+    padding-top: 60px;
+    text-align: center;
+    background: url("forGame/стрелка.png") no-repeat 50% 0;
+    min-height: 400px;
+    z-index: -1;
+    img {
+      border-radius: 150px;
+    }
+
+  }
+  div {
+    &.deck1, &.deck2 {
+      position: relative;
+      img {
+        position: absolute;
+      }
+    }
+
+  }
+
+}
+
+.an1 {
+  animation: an1 1s linear forwards;
+
+}
+
+@keyframes an1 {
+  from {
+    transform: translateX(0px) rotateY(0deg);
+  }
+
+  to {
+    transform: translateX(200px) rotateY(90deg);
+  }
+}
+
+.an11 {
+  animation: an11 1s linear forwards;
+  margin-left: 200px;
+}
+
+@keyframes an11 {
+  from {
+    transform: translateX(0px) rotateY(90deg);
+  }
+
+  to {
+    transform: translateX(200px) rotateY(0deg);
+  }
+}
+
+.an2 {
+  animation: an2 1s linear forwards;
+
+}
+
+@keyframes an2 {
+  from {
+    transform: translateX(0px) rotateY(0deg);
+  }
+
+  to {
+    transform: translateX(-200px) rotateY(90deg);
+  }
+}
+
+.an21 {
+  animation: an21 1s linear forwards;
+  margin-right: 200px;
+}
+
+@keyframes an21 {
+  from {
+    transform: translateX(0px) rotateY(90deg);
+  }
+
+  to {
+    transform: translateX(-200px) rotateY(0deg);
+  }
+}
+
+.win1 {
+  animation: win 1s linear;
+  margin-left: 400px;
+}
+
+.win2 {
+  animation: win 1s linear;
+  margin-right: 400px;
+}
+
+@keyframes win {
+  0% {
+    transform: rotateZ(-20deg);
+  }
+  25% {
+    transform: rotateZ(20deg);
+  }
+  50% {
+    transform: rotateZ(-20deg);
+  }
+  75% {
+    transform: rotateZ(20deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+.loose1 {
+  animation: loose 1s linear;
+  margin-left: 400px;
+}
+
+.loose2 {
+  animation: loose 1s linear;
+  margin-right: 400px;
+}
+
+@keyframes loose {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+
+
+
+
