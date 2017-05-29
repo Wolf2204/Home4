@@ -1,8 +1,7 @@
 (function () {
     'use strict';
 
-    let sumCards = 36;
-    let suitLength = sumCards / 4;
+
 
     function Deck() {
 
@@ -11,9 +10,11 @@
     Object.defineProperties(Deck.prototype, {
         deckList: {
             value: function (...arg) {
-                let suitCard = ['бубна', 'черви', 'пика', 'крести'];
-                let number = 0;
-                let deckLength = 'cards36/';
+                let sumCards = 36,
+                suitLength = sumCards / 4,
+                suitCard = ['бубна', 'черви', 'пика', 'крести'],
+                number = 0,
+                deckLength = 'cards36/';
 
                 for (let i = 0; i < 4; i++) {
                     for (let j = 1; j <= suitLength; j++) {
@@ -23,7 +24,7 @@
                             suit: suitCard[i]
                         })
                     }
-                    number += 9;
+                    number += suitLength;
 
                 }
                 return arg;

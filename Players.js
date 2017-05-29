@@ -13,9 +13,6 @@
                 let deck1 = document.body.querySelector('.deck1');
                 let deck2 = document.body.querySelector('.deck2');
                 let a = 50;
-
-
-
                 for (let i = 18; i > 0; i--) {
                     let img1 = document.createElement('img'),
                         img2 = document.createElement('img');

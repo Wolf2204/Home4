@@ -88,86 +88,104 @@
         },
 
         start: {
-            value: function (count1, count2, img1, img2) {
-                let time = 3500;
+            value: function (count1, count2, img1, img2, deck1, deck2) {
+                let p1 = Array.prototype.slice.call(img1);
+                let p2 = Array.prototype.slice.call(img2);
 
-                for (let i = 17; i >= 0; i--) {
-                    let a = deckPetya[i][0].val,
-                        b = deckVasya[i][0].val;
+                function turns (finalTurn, gamePlay, winner) {
+                    let countTurns = 17,
+                        gameProcess = function () {
+                            if (countTurns > finalTurn) {
+                                gamePlay(countTurns, function () {
+                                    gameProcess();
+                                });
+                                countTurns--;
+                            } else {
+                                winner(count1, count2);
+                            }
+                        };
+                    gameProcess();
+                }
 
-                    let c = document.body.querySelector('.petya');
-                    let d = document.body.querySelector('.vasia');
+                setTimeout(function () {
 
-                    setTimeout(function () {
+                    turns(-1, function (i, next) {
+                        let a = deck1[i][0];
+                        let b = deck2[i][0];
+                        let c = document.body.querySelector('.petya'),
+                            d = document.body.querySelector('.vasia');
+                        p1[i].classList.add('an1');
+                        p2[i].classList.add('an2');
+                        p1[i].addEventListener('animationend', function an1() {
+                            p1[i].classList.remove('an1');
+                            p2[i].classList.remove('an2');
+                            p1[i].src = a.card;
+                            p2[i].src = b.card;
+                            p1[i].classList.add('an11');
+                            p2[i].classList.add('an21');
+                            p1[i].removeEventListener('animationend', an1);
+                            p1[i].addEventListener('animationend', function an2() {
+                                p1[i].classList.remove('an11');
+                                p2[i].classList.remove('an21');
 
-                        img1[i].classList.add('an1');
-                        img2[i].classList.add('an2');
-
-                        img1[i].addEventListener('animationend', function an1() {
-                            img1[i].classList.remove('an1');
-                            img2[i].classList.remove('an2');
-                            img1[i].src = deckPetya[i][0].card;
-                            img2[i].src = deckVasya[i][0].card;
-
-                            img1[i].classList.add('an11');
-                            img2[i].classList.add('an21');
-                            img1[i].removeEventListener('animationend', an1);
-
-                            img1[i].addEventListener('animationend', function an2() {
-                                img1[i].classList.remove('an11');
-                                img2[i].classList.remove('an21');
-                                if (a > b) {
+                                if (a.val > b.val) {
                                     count1 += 1;
                                     c.innerText = count1;
-                                    img1[i].classList.add('win1');
-                                    img2[i].classList.add('loose2');
-                                } else if (a < b) {
+                                    p1[i].classList.add('win1');
+                                    p2[i].classList.add('loose2');
+                                } else if (a.val < b.val) {
                                     count2 += 1;
                                     d.innerText = count2;
-                                    img1[i].classList.add('loose1');
-                                    img2[i].classList.add('win2');
+                                    p1[i].classList.add('loose1');
+                                    p2[i].classList.add('win2');
                                 } else {
-                                    img1[i].classList.add('loose1');
-                                    img2[i].classList.add('loose2');
+                                    p1[i].classList.add('loose1');
+                                    p2[i].classList.add('loose2');
 
                                 }
-                                img1[i].removeEventListener('animationend', an2);
+                                p1[i].removeEventListener('animationend', an2);
 
-                                img1[i].addEventListener('animationend', function an3() {
+                                p1[i].addEventListener('animationend', function an3() {
 
-                                    img1[i].style.transition = 'transform 1s linear';
-                                    img2[i].style.transition = 'transform 1s linear';
+                                    p1[i].style.transition = 'transform 1s linear';
+                                    p2[i].style.transition = 'transform 1s linear';
                                     let position = 200;
                                     for (let j = i; j <= 17; j++) {
-                                        img1[j].style.transform = `translateY(${position}px)`;
-                                        img2[j].style.transform = `translateY(${position}px)`;
+                                        p1[j].style.transform = `translateY(${position}px)`;
+                                        p2[j].style.transform = `translateY(${position}px)`;
                                         position += 200;
                                     }
-                                    img1[i].removeEventListener('animationend', an3);
-                                });
-                            });
+
+                                    p1[i].removeEventListener('animationend', an3);
+                                })
+
+                            })
                         });
-                    }, time);
-                    time += 3000;
-                    if (i === 0) {
-                        img1[0].addEventListener('transitionend', function () {
-                            if (count1 > count2) {
+                        setTimeout(next, 3000);
+
+                    }, function (c1, c2) {
+                        p1[0].addEventListener('transitionend', function tr () {
+                            if (c1 > c2) {
                                 alert("Winner: Петя");
-                            } else if (count1 < count2) {
+                            } else if (c1 < c2) {
                                 alert("Winner: Вася");
                             } else {
                                 alert("Ничья");
                             }
+                            p1[0].removeEventListener('transitionend', tr);
                         })
-                    }
-                }
+
+                    });
+                }, 3500);
+
+
             }
         }
     });
 
     let game = new Game();
     game.suit(rand);
-    game.start(resultPetya, resultVasya, img1, img2);
+    game.start(resultPetya, resultVasya, img1, img2, deckPetya, deckVasya);
 
 
 }());
